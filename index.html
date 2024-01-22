@@ -1,30 +1,28 @@
 <!DOCTYPE html>
-<html>
-<head> 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXTB4J51K8"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shiny App</title>
+    <script
+      src="./shinylive/load-shinylive-sw.js"
+      type="module"
+    ></script>
+    <script type="module">
+      import { runApp } from "./shinylive/shinylive.js";
+      const response = await fetch("./app.json");
+      if (!response.ok) {
+        throw new Error("HTTP error loading app.json: " + response.status);
+      }
+      const appFiles = await response.json();
 
-        gtag('config', 'G-BXTB4J51K8');
-        </script>
-    <title>Denis Tchaouchev</title>
-</head>
-<body>
-    <div style="text-align: left;">
-        <div style="width: 350px; float: right;">
-          <div align="center">
-        <p><img SRC="suphoto.jpg" height="270">
-          </div>
-       </div>
-
-       <h1>Denis Tchaouchev</h1>
-
-       <p>I am a Ph.D. candidate in the Department of Political Science at Stanford University. My research interests are in international relations and formal theory. I am particularly interested in how technological change affects the frequency, conduct, and outcomes of international conflicts.</p>
-       <p>Prior to starting graduate school, I received a B.A. in Computer Science and a B.A. in Political Science from Columbia University.</p>
-       <!--<p>My CV can be viewed <a href=https://www.dropbox.com/scl/fi/mcxkldxn9vrkvz2hgp86u/Tchaouchev_CV092023.pdf?rlkey=cfnru9urckhlfxknu4tls2t3c&dl=0"> here.</a></p>-->
-       <p>My CV can be viewed <a href="Tchaouchev_CV092023.pdf"> here.</a></p>
-</body>
+      const appRoot = document.getElementById("root");
+      runApp(appRoot, "viewer", {startFiles: appFiles}, "r");
+    </script>
+    <link rel="stylesheet" href="./shinylive/style-resets.css" />
+    <link rel="stylesheet" href="./shinylive/shinylive.css" />
+  </head>
+  <body>
+    <div style="height: 100vh; width: 100vw" id="root"></div>
+  </body>
 </html>
